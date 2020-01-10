@@ -20,7 +20,11 @@ class ImportServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../Databases/Migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/../Translations', 'import');
         $this->loadViewsFrom(__DIR__ . '/../Views', 'import');
+        $this->publishes([__DIR__ . '/../../config/cw_import.php' => config_path('cw_import.php')], 'cw_import');
     }
 
     /**
