@@ -36,6 +36,7 @@ class ImportService
     public function execute($id)
     {
         $import = $this->find($id);
+
         if ($import) {
             ImportJob::dispatch($import);
             $this->executeEvent($import, 'Queued');

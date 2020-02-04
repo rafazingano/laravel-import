@@ -15,11 +15,11 @@ class Import extends Model
 
     public function type()
     {
-        return $this->belongsTo('MeridienClube\Meridien\ImportType', 'type_id');
+        return $this->belongsTo('ConfrariaWeb\Import\Models\ImportType', 'type_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('MeridienClube\Meridien\UserAuth', 'user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

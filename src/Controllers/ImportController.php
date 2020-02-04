@@ -21,6 +21,14 @@ class ImportController extends Controller
         $this->data = [];
     }
 
+    public function execute($id)
+    {
+
+        $import = resolve('ImportService')->execute($id);
+        return redirect()
+            ->route('admin.imports.show', $id)
+            ->with('status', 'A integração foi enviada para a fila de processamento com sucesso!');
+    }
 
     /**
      * Display a listing of the resource.
@@ -30,7 +38,7 @@ class ImportController extends Controller
     public function index()
     {
         $this->data['imports'] = resolve('ImportService')->all();
-        return view('imports.index', $this->data);
+        return view(config('cw_import.views') . 'imports.index', $this->data);
     }
 
     /**
@@ -41,7 +49,7 @@ class ImportController extends Controller
     public function create()
     {
         $this->data['types'] = resolve('ImportTypeService')->pluck('name', 'id');
-        return view('imports.create', $this->data);
+        return view(config('cw_import.views') . 'imports.create', $this->data);
     }
 
     /**
@@ -54,7 +62,7 @@ class ImportController extends Controller
     {
         $import = resolve('ImportService')->create($request->all());
         return redirect()
-            ->route('imports.edit', $import->id)
+            ->route('admin.imports.edit', $import->id)
             ->with('status', 'Importação criada com sucesso!');
     }
 
@@ -68,7 +76,7 @@ class ImportController extends Controller
     {
         $import = resolve('ImportService')->find($id);
         $this->data['import'] = $import;
-        return view('imports.show', $this->data);
+        return view(config('cw_import.views') . 'imports.show', $this->data);
     }
 
     /**
@@ -83,15 +91,15 @@ class ImportController extends Controller
         $this->data['import'] = $import;
         $this->data['types'] = resolve('ImportTypeService')->pluck('name', 'id');
         $this->data['roles'] = resolve('RoleService')->pluck('name', 'id');
-        $this->data['steps'] = resolve('StepService')->pluck('name', 'id');
-        $this->data['employees'] = resolve('UserService')->employees();
-        $this->data['statuses'] = auth()->user()->roleStatuses->pluck('name', 'id');
-        $this->data['task_statuses'] = auth()->user()->roleTasksStatuses->pluck('name', 'id');
+        $this->data['steps'] = resolve('MeridienStepService')->pluck('name', 'id');
+        $this->data['employees'] = resolve('MeridienUserService')->employees();
+        $this->data['statuses'] = resolve('UserStatusService')->pluck('name', 'id');
+        $this->data['task_statuses'] = resolve('TaskStatusService')->pluck('name', 'id');
         $this->data['task_types'] = resolve('TaskTypeService')->pluck('name', 'id');
 
-        $this->data['view_type'] = 'imports.types.' . Str::slug(Str::replaceLast('ImportService', '', $import->type->service));
+        $this->data['view_type'] = Str::slug(Str::replaceLast('Service', '', $import->type->service)) . '::partials.form';
 
-        return view('imports.edit', $this->data);
+        return view(config('cw_import.views') . 'imports.edit', $this->data);
     }
 
     /**
@@ -108,7 +116,7 @@ class ImportController extends Controller
             $this->execute($import->id);
         }
         return redirect()
-            ->route('imports.edit', $import->id)
+            ->route('admin.imports.edit', $import->id)
             ->with('status', 'Importação editada com sucesso!');
     }
 
@@ -122,15 +130,8 @@ class ImportController extends Controller
     {
         $import = resolve('ImportService')->destroy($id);
         return redirect()
-            ->route('imports.index')
+            ->route('admin.imports.index')
             ->with('status', __('imports.destroy.successfully'));
     }
 
-    public function execute($id)
-    {
-        $import = resolve('ImportService')->execute($id);
-        return redirect()
-            ->route('imports.show', $id)
-            ->with('status', 'A integração foi enviada para a fila de processamento com sucesso!');
-    }
 }
