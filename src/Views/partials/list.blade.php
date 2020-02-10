@@ -2,7 +2,7 @@
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                {{ trans('meridien.imports.list') }}
+                {{ trans('Listagem de importações') }}
             </h3>
         </div>
     </div>
@@ -12,9 +12,9 @@
                 <table class="table table-striped table-hover" id="imports_datatable">
                     <thead>
                     <tr>
-                        <th width="">{{ trans('meridien.imports.type') }}</th>
-                        <th width="">{{ trans('meridien.imports.user') }}</th>
-                        <th width="">{{ trans('meridien.imports.name') }}</th>
+                        <th width="">{{ trans('Tipo') }}</th>
+                        <th width="">{{ trans('Usuário') }}</th>
+                        <th width="">{{ trans('Arquivo') }}</th>
                         <th></th>
                     </tr>
                     </thead>

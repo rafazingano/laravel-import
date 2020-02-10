@@ -9,13 +9,13 @@
 
     <div class="kt-portlet__body">
         <div class="form-group">
-            <label class="control-label">{{ trans('meridien.imports.type') }}<span class="required"> * </span></label>
+            <label class="control-label">{{ trans('Tipo') }}<span class="required"> * </span></label>
             {!! Form::select('type_id', $types, isset($import)? $import->type : null, ['class' => 'form-control', 'required']) !!}
         </div>
 
         @empty($import)
         <div class="form-group">
-            <label class="control-label">{{ trans('meridien.imports.file') }}<span class="required"> * </span></label>
+            <label class="control-label">{{ trans('Arquivo') }}<span class="required"> * </span></label>
             {!! Form::file('file', ['class' => 'form-control', 'required' => !isset($import)]) !!}
         </div>
         @endempty
@@ -24,7 +24,7 @@
 
         <div class="form-group">
             {!! Form::checkbox('run_on_save', 1, false, ['class' => 'form-checkbox']) !!}
-            <label class="control-label">{{ trans('meridien.imports.run_on_save') }}<span class="required"> ? </span></label>
+            <label class="control-label">{{ trans('Executar ao salvar') }}<span class="required"> ? </span></label>
         </div>
 
     </div>
