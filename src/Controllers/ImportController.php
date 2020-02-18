@@ -91,7 +91,7 @@ class ImportController extends Controller
         $this->data['import'] = $import;
         $this->data['types'] = resolve('ImportTypeService')->pluck('name', 'id');
         $this->data['roles'] = resolve('RoleService')->pluck('name', 'id');
-        $this->data['steps'] = resolve('MeridienStepService')->pluck('name', 'id');
+        $this->data['steps'] = resolve('CrmStepService')->pluck('name', 'id');
         $this->data['employees'] = resolve('MeridienUserService')->employees();
         $this->data['statuses'] = resolve('UserStatusService')->pluck('name', 'id');
         $this->data['task_statuses'] = resolve('TaskStatusService')->pluck('name', 'id');
