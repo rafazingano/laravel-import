@@ -1,6 +1,6 @@
 {
     "name": "confrariaweb/laravel-import",
-    "version": "dev-master",
+    "version": "1.0.0",
     "description": "Laravel Imports System",
     "keywords": [
         "import",
